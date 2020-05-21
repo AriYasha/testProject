@@ -22,7 +22,6 @@ public class HibernateSessionFactoryUtil {
             configuration.addAnnotatedClass(RoomsEntity.class);
 
 
-
             StandardServiceRegistryBuilder builder =
                     new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
             return configuration.buildSessionFactory(builder.build());

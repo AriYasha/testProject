@@ -1,19 +1,20 @@
 package com.config;
 
-import com.com.mixMind.GeoIpImpl;
-import com.com.mixMind.RoomImpl;
+import com.com.mixMindDao.GeoIpImpl;
+import com.com.mixMindDao.RoomImpl;
 import com.hibernateSessionFactoryUtil.HibernateSessionFactoryUtil;
+import com.webUtils.Data;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-
 
 
 @Configuration
@@ -55,11 +56,22 @@ public class Config implements WebMvcConfigurer {
 
 
     @Bean
+    public Data data() {
+        return new Data();
+    }
+
+    @Bean
     public GeoIpImpl geoIp() {
         return new GeoIpImpl(sessionFactory());
     }
+
     @Bean
-    public RoomImpl room(){
-        return  new RoomImpl(sessionFactory());
+    public RoomImpl room() {
+        return new RoomImpl(sessionFactory());
+    }
+
+    @Bean
+    public HibernateTransactionManager transactionManager() {
+        return new HibernateTransactionManager(sessionFactory());
     }
 }

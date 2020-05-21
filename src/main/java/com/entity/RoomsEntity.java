@@ -8,21 +8,21 @@ import java.util.Objects;
 public class RoomsEntity {
     private int idRoom;
     private String roomName;
-    private byte condition;
+    private int state;
     private int idCountry;
-   // private GeoipEntity geoipByIdCountry;
 
 
-    public RoomsEntity(){
+    public RoomsEntity() {
+
+    }
+
+    public RoomsEntity(String roomName, int idCountry, int state) {
+        this.roomName = roomName;
+        this.idCountry = idCountry;
+        this.state = state;
 
     }
 
-    public  RoomsEntity (String roomName, int idCountry, byte condition){
-        this.roomName=roomName;
-        this.idCountry=idCountry;
-        this.condition=condition;
-
-    }
     @Id
     @Column(name = "idRoom", nullable = false)
     public int getIdRoom() {
@@ -44,24 +44,15 @@ public class RoomsEntity {
     }
 
     @Basic
-    @Column(name = "condition", nullable = false)
-    public byte getCondition() {
-        return condition;
+    @Column(name = "state", nullable = true)
+    public int getState() {
+        return state;
     }
 
-    public void setCondition(byte condition) {
-        this.condition = condition;
+    public void setState(int state) {
+        this.state = state;
     }
 
-
-
-//    public int getIdCountry() {
-//        return idCountry;
-//    }
-//
-//    public void setIdCountry(int idCountry) {
-//        this.idCountry = idCountry;
-//    }
 
     @Override
     public boolean equals(Object o) {
@@ -69,17 +60,17 @@ public class RoomsEntity {
         if (o == null || getClass() != o.getClass()) return false;
         RoomsEntity that = (RoomsEntity) o;
         return idRoom == that.idRoom &&
-                condition == that.condition &&
+                state == that.state &&
                 Objects.equals(roomName, that.roomName);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(idRoom, roomName, condition);
+        return Objects.hash(idRoom, roomName, state);
     }
 
-    //@ManyToOne
+
     @JoinColumn(name = "idCountry", referencedColumnName = "id_country", nullable = false)
     public int getIdCountry() {
         return idCountry;
